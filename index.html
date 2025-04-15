@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نُوّار - Nowar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="/Nowar/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInDown">نُوّار</h1>
+            <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">تطبيق الاسترخاء الذكي لجودة حياة أفضل</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="app-header">
+            <div class="app-controls">
+                <button class="control-btn" id="dark-mode-toggle" title="وضع الليل">
+                    <i class="material-icons">dark_mode</i>
+                </button>
+                <button class="control-btn" id="notifications-toggle" title="الإشعارات">
+                    <i class="material-icons">notifications</i>
+                </button>
+            </div>
+            <div class="greeting" id="greeting-message"></div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="breathing">
+                <i class="material-icons">air</i> التنفس
+            </button>
+            <button class="tab-btn" data-tab="sounds">
+                <i class="material-icons">audiotrack</i> الأصوات
+            </button>
+            <button class="tab-btn" data-tab="meditation">
+                <i class="material-icons">self_improvement</i> التأمل
+            </button>
+            <button class="tab-btn" data-tab="quotes">
+                <i class="material-icons">format_quote</i> الاقتباسات
+            </button>
+            <button class="tab-btn" data-tab="mood">
+                <i class="material-icons">mood</i> المزاج
+            </button>
+            <button class="tab-btn" data-tab="settings">
+                <i class="material-icons">settings</i> الإعدادات
+            </button>
+        </div>
+        
+        <!-- Breathing Tab -->
+        <div id="breathing" class="tab-content active">
+            <h2 class="section-title">
+                <i class="material-icons">air</i> تمارين التنفس العميق
+            </h2>
+            <p>استخدم هذه الأداة للمساعدة في ممارسة التنفس العميق الذي يقلل التوتر والقلق، يحسن التركيز، وينظم ضغط الدم.</p>
+            
+            <div class="breathing-container">
+                <div class="breathing-visual">
+                    <div class="breathing-circle" id="breath-circle">جاهز</div>
+                    <div class="breathing-pulse" id="breath-pulse"></div>
+                </div>
+                
+                <div class="breathing-controls">
+                    <select id="breath-pattern">
+                        <option value="4-4-4-4">4-4-4-4 (مبتدئ)</option>
+                        <option value="4-7-8-0">4-7-8 (متوسط)</option>
+                        <option value="5-5-5-5">5-5-5-5 (متقدم)</option>
+                        <option value="4-4-6-2">4-4-6-2 (نوم)</option>
+                    </select>
+                    
+                    <button class="btn btn-primary" id="start-breath">
+                        <i class="material-icons">play_arrow</i> بدء
+                    </button>
+                    <button class="btn btn-secondary" id="pause-breath" disabled>
+                        <i class="material-icons">pause</i> إيقاف
+                    </button>
+                    <button class="btn btn-accent" id="reset-breath">
+                        <i class="material-icons">replay</i> إعادة
+                    </button>
+                </div>
+                
+                <div class="breathing-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="today-sessions">0</div>
+                        <div class="stat-label">جلسات اليوم</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-sessions">0</div>
+                        <div class="stat-label">إجمالي الجلسات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-time">0</div>
+                        <div class="stat-label">دقائق تمارين</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <h3 class="section-title">
+                    <i class="material-icons">insights</i> إحصائيات التنفس
+                </h3>
+                <div class="stats-grid" id="breath-stats">
+                    <!-- Stats will be added dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sounds Tab -->
+        <div id="sounds" class="tab-content">
+            <h2 class="section-title">
+                <i class="material-icons">audiotrack</i> أصوات الطبيعة
+            </h2>
+            <p>اختر من مجموعة الأصوات الطبيعية المريحة لمساعدتك على الاسترخاء، التأمل، أو النوم.</p>
+            
+            <div class="sounds-grid" id="sounds-grid">
+                <!-- Sounds will be added dynamically -->
+            </div>
+            
+            <div class="volume-control-container">
+                <label for="master-volume">مستوى الصوت العام:</label>
+                <input type="range" id="master-volume" min="0" max="1" step="0.1" value="0.5" class="volume-control">
+            </div>
+            
+            <div class="mixer-container" id="sound-mixer" style="display: none;">
+                <h3 class="section-title">
+                    <i class="material-icons">mixer</i> مزج الأصوات
+                </h3>
+                <div id="mixer-controls">
+                    <!-- Mixer controls will be added dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Meditation Tab -->
+        <div id="meditation" class="tab-content">
+            <h2 class="section-title">
+                <i class="material-icons">self_improvement</i> جلسات تأمل موجهة
+            </h2>
+            <p>اختر من جلسات التأمل الموجهة التالية لمساعدتك على الاسترخاء، التركيز، وتحسين النوم.</p>
+            
+            <div class="meditation-list" id="meditation-list">
+                <!-- Meditation items will be added dynamically -->
+            </div>
+            
+            <div class="meditation-player" id="meditation-player" style="display: none; margin-top: 40px;">
+                <h3 class="section-title">
+                    <i class="material-icons">play_circle_filled</i> جلسة التأمل
+                </h3>
+                <div class="player-controls">
+                    <div class="player-progress">
+                        <div class="progress-bar" id="meditation-progress"></div>
+                        <div class="time-display">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                    <div class="player-buttons">
+                        <button class="btn btn-primary" id="play-pause-meditation">
+                            <i class="material-icons">play_arrow</i> تشغيل
+                        </button>
+                        <button class="btn btn-accent" id="stop-meditation">
+                            <i class="material-icons">stop</i> إيقاف
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quotes Tab -->
+        <div id="quotes" class="tab-content">
+            <h2 class="section-title">
+                <i class="material-icons">format_quote</i> اقتباسات ملهمة
+            </h2>
+            <p>اقرأ هذه الاقتباسات الملهمة لرفع معنوياتك وتغيير منظورك نحو الحياة.</p>
+            
+            <div class="quote-container" id="quote-display">
+                <p class="quote-text">اضغط على الزر أدناه لعرض اقتباس ملهم</p>
+                <p class="quote-author"></p>
+            </div>
+            
+            <div class="quote-actions">
+                <button class="btn btn-primary" id="new-quote">
+                    <i class="material-icons">autorenew</i> اقتباس جديد
+                </button>
+                <button class="btn btn-accent" id="save-quote">
+                    <i class="material-icons">favorite</i> حفظ الاقتباس
+                </button>
+                <button class="btn btn-success" id="share-quote">
+                    <i class="material-icons">share</i> مشاركة
+                </button>
+            </div>
+            
+            <div class="saved-quotes-container">
+                <h3 class="section-title">
+                    <i class="material-icons">collections_bookmark</i> الاقتباسات المحفوظة
+                </h3>
+                <div class="saved-quotes-grid" id="saved-quotes">
+                    <!-- Saved quotes will be displayed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mood Tab -->
+        <div id="mood" class="tab-content">
+            <h2 class="section-title">
+                <i class="material-icons">mood</i> تتبع المزاج
+            </h2>
+            <p>سجل حالتك المزاجية اليومية لتتبع نمط مشاعرك مع مرور الوقت وتحسين صحتك النفسية.</p>
+            
+            <div class="mood-tracker">
+                <h3 class="mood-title">كيف تشعر اليوم؟</h3>
+                
+                <div class="mood-options">
+                    <span class="mood-emoji" data-mood="5" title="ممتاز">😊</span>
+                    <span class="mood-emoji" data-mood="4" title="جيد">🙂</span>
+                    <span class="mood-emoji" data-mood="3" title="عادي">😐</span>
+                    <span class="mood-emoji" data-mood="2" title="سيء">🙁</span>
+                    <span class="mood-emoji" data-mood="1" title="فظيع">😞</span>
+                </div>
+                
+                <div class="mood-notes-container">
+                    <label for="mood-notes" class="mood-notes-label">ملاحظات إضافية (اختياري):</label>
+                    <textarea class="mood-notes" id="mood-notes" placeholder="اكتب ملاحظات عن حالتك المزاجية اليوم... ما الذي أثر فيك؟"></textarea>
+                </div>
+                
+                <div class="mood-actions">
+                    <button class="btn btn-primary" id="save-mood">
+                        <i class="material-icons">save</i> حفظ المزاج
+                    </button>
+                    <button class="btn btn-accent" id="add-activity">
+                        <i class="material-icons">add</i> إضافة نشاط
+                    </button>
+                </div>
+            </div>
+            
+            <div class="history-container">
+                <div class="history-header">
+                    <h3 class="section-title">
+                        <i class="material-icons">history</i> سجل المزاج
+                    </h3>
+                    <div class="history-actions">
+                        <button class="btn btn-success" id="view-stats">
+                            <i class="material-icons">bar_chart</i> الإحصائيات
+                        </button>
+                        <button class="btn btn-danger" id="clear-history">
+                            <i class="material-icons">delete</i> مسح السجل
+                        </button>
+                    </div>
+                </div>
+                <div class="history-list" id="mood-history">
+                    <!-- Mood history will be displayed here -->
+                </div>
+            </div>
+            
+            <div class="stats-container" id="mood-stats-container" style="display: none;">
+                <h3 class="section-title">
+                    <i class="material-icons">insights</i> إحصائيات المزاج
+                </h3>
+                <div class="stats-grid" id="mood-stats">
+                    <!-- Mood stats will be added dynamically -->
+                </div>
+                <div id="mood-chart" style="height: 300px; margin-top: 30px;"></div>
+            </div>
+        </div>
+        
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <h2 class="section-title">
+                <i class="material-icons">settings</i> الإعدادات والتفضيلات
+            </h2>
+            <p>قم بتخصيص تطبيق نوار حسب احتياجاتك وتفضيلاتك الشخصية.</p>
+            
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3 class="settings-title">
+                        <i class="material-icons">palette</i> المظهر
+                    </h3>
+                    <div class="settings-option">
+                        <div class="settings-label">لون السمة:</div>
+                        <select id="theme-color">
+                            <option value="purple">بنفسجي</option>
+                            <option value="blue">أزرق</option>
+                            <option value="green">أخضر</option>
+                            <option value="red">أحمر</option>
+                        </select>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">الوضع الليلي:</div>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">حجم الخط:</div>
+                        <select id="font-size">
+                            <option value="small">صغير</option>
+                            <option value="medium" selected>متوسط</option>
+                            <option value="large">كبير</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3 class="settings-title">
+                        <i class="material-icons">notifications</i> الإشعارات
+                    </h3>
+                    <div class="settings-option">
+                        <div class="settings-label">إشعارات التنفس:</div>
+                        <label class="switch">
+                            <input type="checkbox" id="breath-notifications">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">تذكير يومي:</div>
+                        <input type="time" id="daily-reminder">
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">إشعارات المزاج:</div>
+                        <label class="switch">
+                            <input type="checkbox" id="mood-notifications">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3 class="settings-title">
+                        <i class="material-icons">security</i> الخصوصية
+                    </h3>
+                    <div class="settings-option">
+                        <div class="settings-label">حفظ البيانات محلياً:</div>
+                        <div class="settings-value">مفعل</div>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">نسخ احتياطي:</div>
+                        <button class="btn btn-accent" id="backup-data">
+                            <i class="material-icons">backup</i> إنشاء نسخة
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">استعادة نسخة:</div>
+                        <button class="btn btn-warning" id="restore-data">
+                            <i class="material-icons">restore</i> استعادة
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3 class="settings-title">
+                        <i class="material-icons">delete</i> الصيانة
+                    </h3>
+                    <div class="settings-option">
+                        <div class="settings-label">مسح ذاكرة التخزين:</div>
+                        <button class="btn btn-danger" id="clear-cache">
+                            <i class="material-icons">cached</i> مسح الذاكرة
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">مسح جميع البيانات:</div>
+                        <button class="btn btn-danger" id="reset-data">
+                            <i class="material-icons">delete_forever</i> مسح الكل
+                        </button>
+                    </div>
+                    <div class="settings-option">
+                        <div class="settings-label">إعادة تعيين التطبيق:</div>
+                        <button class="btn btn-warning" id="reset-app">
+                            <i class="material-icons">restart_alt</i> إعادة تعيين
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-section" style="margin-top: 50px;">
+                <h3 class="section-title">
+                    <i class="material-icons">info</i> حول التطبيق
+                </h3>
+                <div class="about-content" style="line-height: 1.8;">
+                    <p>نُوّار هو تطبيق استرخاء شامل صمم لمساعدتك على تحسين صحتك النفسية والعقلية من خلال أدوات علمية مدعومة بالأبحاث.</p>
+                    <p>الإصدار: 2.0.0</p>
+                    <p>تاريخ الإصدار: ١ يناير ٢٠٢٤</p>
+                    <p>تم التطوير بكل ❤️ لمساعدة الناس على عيش حياة أكثر سعادة وصحة.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="app-name">نُوّار</div>
+            <p>تطبيق الاسترخاء الذكي لجودة حياة أفضل</p>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">
+                    <i class="material-icons">help</i> المساعدة
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="material-icons">feedback</i> اقتراحات
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="material-icons">privacy_tip</i> الخصوصية
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="material-icons">star</i> قيمنا
+                </a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 نوّار. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmation-modal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modal-title">تأكيد الإجراء</h3>
+            <p class="modal-message" id="modal-message">هل أنت متأكد أنك تريد تنفيذ هذا الإجراء؟</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="modal-confirm">نعم، متأكد</button>
+                <button class="btn btn-secondary" id="modal-cancel">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/Nowar/index.js"></script>
+</body>
+</html>
